@@ -1,0 +1,51 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Identitee index{% endblock %}
+
+{% block body %}
+    <h1>Identitee index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Mail</th>
+                <th>Telephone</th>
+                <th>Ville</th>
+                <th>Code_postal</th>
+                <th>Adresse</th>
+                <th>Card</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for identitee in identitees %}
+            <tr>
+                <td>{{ identitee.id }}</td>
+                <td>{{ identitee.nom }}</td>
+                <td>{{ identitee.prenom }}</td>
+                <td>{{ identitee.mail }}</td>
+                <td>{{ identitee.telephone }}</td>
+                <td>{{ identitee.ville }}</td>
+                <td>{{ identitee.codePostal }}</td>
+                <td>{{ identitee.adresse }}</td>
+                <td>
+                    {#                    <a href="{{  }}">show card</a>#}
+                </td>
+                <td>
+                    <a href="{{ path('app_identitee_show', {'id': identitee.id}) }}">show</a>
+                    <a href="{{ path('app_identitee_edit', {'id': identitee.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_identitee_new') }}">Create new</a>
+{% endblock %}

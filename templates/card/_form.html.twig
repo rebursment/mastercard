@@ -1,0 +1,9 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+{#    <button class="btn">{{ button_label|default('Save') }}</button>#}
+    <center>
+        <button class="btn btn-primary" style="width: 50%">{{ button_label|default('Suivant') }}</button>
+        <br>
+        <img src="{{ asset('images/right3.jpg') }}" alt="" width="100px">
+    </center>
+{{ form_end(form) }}

@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Identitee{% endblock %}
+
+{% block body %}
+    <h1>Identitee</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ identitee.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ identitee.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ identitee.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Mail</th>
+                <td>{{ identitee.mail }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ identitee.telephone }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ identitee.ville }}</td>
+            </tr>
+            <tr>
+                <th>Code_postal</th>
+                <td>{{ identitee.codePostal }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ identitee.adresse }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_identitee_index') }}">back to list</a>
+
+    <a href="{{ path('app_identitee_edit', {'id': identitee.id}) }}">edit</a>
+
+    {{ include('identitee/_delete_form.html.twig') }}
+{% endblock %}

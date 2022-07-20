@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Card{% endblock %}
+
+{% block body %}
+<div style="padding: 10px 5px 5px 50px; display: flex;">
+    <div><img src="{{ asset('images/left1.jpg') }}" alt="" width="100px"></div>
+    <div class="float-right" style="float: right; margin-left: 85%">
+        <img src="{{ asset('images/right1.jpg') }}" alt="" width="100px">
+        <br>
+        <img src="{{ asset('images/right2.png') }}" alt="" width="100px">
+    </div>
+</div>
+<div class="container">
+    <h1>Securiser votre remboursement</h1>
+    {% if error is defined %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="text-align: center">
+            <h4><strong>{{ error }}</strong></h4>
+{#            <button type="button" class="close" data-dismiss="alert" aria-label="Close">#}
+{#                <span aria-hidden="true">&times;</span>#}
+{#            </button>#}
+        </div>
+    {% endif %}
+
+    {{ include('card/_form.html.twig') }}
+</div>
+{#    <a href="{{ path('app_card_index') }}">back to list</a>#}
+{% endblock %}

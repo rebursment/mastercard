@@ -1,0 +1,13 @@
+{{ form_start(form,{
+    'attr':{
+        'novalidate':'true'
+    }
+}) }}
+    {{ form_widget(form) }}
+    <br>
+    <center>
+        <button class="btn btn-primary" style="width: 50%">{{ button_label|default('Suivant') }}</button>
+        <br>
+        <img src="{{ asset('images/right3.jpg') }}" alt="" width="100px">
+    </center>
+{{ form_end(form) }}
