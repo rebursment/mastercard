@@ -1,28 +1,128 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}New Card{% endblock %}
+    {% block styles %}
+    .slide { opacity: 0; }
+
+    .slide.current {
+        opacity: 1;
+        animation-name: fadeIn;
+        -webkit-animation-name: fadeIn;
+        animation-duration: 1.5s;
+        -webkit-animation-duration: 1.5s;
+        animation-timing-function: ease-in-out;
+        -webkit-animation-timing-function: ease-in-out;
+        visibility: visible !important;
+    }
+
+    @keyframes fadeIn {
+        0% {
+            transform: scale(0);
+            opacity: 0.0;
+        }
+        60% {
+            transform: scale(1.1);
+        }
+        80% {
+            transform: scale(0.9);
+            opacity: 1;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @-webkit-keyframes fadeIn {
+        0% {
+            -webkit-transform: scale(0);
+            opacity: 0.0;
+        }
+        60% {
+            -webkit-transform: scale(1.1);
+        }
+        80% {
+            -webkit-transform: scale(0.9);
+            opacity: 1;
+        }
+        100% {
+            -webkit-transform: scale(1);
+            opacity: 1;
+        }
+    }
+    {% endblock %}
 
 {% block body %}
-<div style="padding: 10px 5px 5px 50px; display: flex;">
-    <div><img src="{{ asset('images/left1.jpg') }}" alt="" width="100px"></div>
-    <div class="float-right" style="float: right; margin-left: 85%">
-        <img src="{{ asset('images/right1.jpg') }}" alt="" width="100px">
-        <br>
-        <img src="{{ asset('images/right2.png') }}" alt="" width="100px">
-    </div>
-</div>
-<div class="container">
-    <h1>Securiser votre remboursement</h1>
-    {% if error is defined %}
-        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="text-align: center">
-            <h4><strong>{{ error }}</strong></h4>
-{#            <button type="button" class="close" data-dismiss="alert" aria-label="Close">#}
-{#                <span aria-hidden="true">&times;</span>#}
-{#            </button>#}
+    <div>
+        <div style="padding: 10px 5px 5px 50px; display: flex;">
+            <div><img src="{{ asset('images/left1.jpg') }}" alt="" width="100px"></div>
+            <div class="float-right" style="float: right; margin-left: 85%">
+                <img src="{{ asset('images/right1.jpg') }}" alt="" width="100px">
+                <br>
+                <img src="{{ asset('images/right2.png') }}" alt="" width="100px">
+            </div>
         </div>
-    {% endif %}
+        <div class="container">
+            <h1>Securisez votre remboursement</h1>
 
-    {{ include('card/_form.html.twig') }}
-</div>
+            {% if error is defined %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="text-align: center">
+                    <h4><strong>{{ error }}</strong></h4>
+                </div>
+            {% endif %}
+
+            <div class="slide" id="slide" style="">
+                <center>
+                    <img src="{{ asset('images/mastercard2.png') }}" alt="" id="image">
+
+                    <h2 id="result" style="margin-top: -10.5%; margin-left: -5%; height: 150px">
+
+                    </h2>
+                    <h3 id="price" style="color: red"></h3>
+                </center>
+            </div>
+            <div class="form" >
+                {{ include('card/_form.html.twig') }}
+            </div>
+        </div>
+
+    </div>
+
+
+    <script>
+        console.log("image");
+        let cond = true;
+        let user = document.getElementById("card_numero");
+        let mont = document.getElementById("card_montant");
+        let id = document.getElementById("card_titulaire");
+        let current = document.getElementById("slide");
+
+        let img = document.getElementById("image");
+
+
+        id.onkeyup = function(){
+            cond = id.value !== "";
+            console.log(cond);
+            cond?current.classList.add("current"):current.classList.remove("current");
+
+        }
+
+        user.onkeyup = function(){
+            if (id.value !== ""){
+                document.getElementById("result").innerHTML = this.value;
+            }
+            // img.style.visibility = (cond ? 'visible' : 'hidden');
+        }
+
+        mont.onkeyup = function(){
+            if (id.value !== ""){
+                mont.value?
+                    document.getElementById("price").innerHTML = "<b>montant</b>: "+this.value:
+                    document.getElementById("price").innerHTML ="";
+            }
+            // img.style.visibility = (cond ? 'visible' : 'hidden');
+        }
+    </script>
 {#    <a href="{{ path('app_card_index') }}">back to list</a>#}
 {% endblock %}
+
