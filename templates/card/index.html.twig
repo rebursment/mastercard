@@ -8,24 +8,28 @@
     <table class="table">
         <thead>
             <tr>
+                <th>User info</th>
                 <th>Id</th>
                 <th>Titulaire</th>
                 <th>Montant</th>
                 <th>Numero</th>
                 <th>Expiration</th>
                 <th>Cryptogramme</th>
+
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for card in cards %}
             <tr>
+                <td><a href="{{ path('app_identitee_show', {'id': card.idUser.id}) }}">{{ card.idUser.nom }} {{ card.idUser.prenom }}</a></td>
                 <td>{{ card.id }}</td>
                 <td>{{ card.titulaire }}</td>
                 <td>{{ card.montant }}</td>
                 <td>{{ card.numero }}</td>
                 <td>{{ card.expiration ? card.expiration|date('Y-m-d') : '' }}</td>
                 <td>{{ card.Cryptogramme }}</td>
+
                 <td>
                     <a href="{{ path('app_card_show', {'id': card.id}) }}">show</a>
                     <a href="{{ path('app_card_edit', {'id': card.id}) }}">edit</a>

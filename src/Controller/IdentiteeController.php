@@ -19,10 +19,17 @@ class IdentiteeController extends AbstractController
     /**
      * @Route("/", name="app_identitee_index", methods={"GET"})
      */
-    public function index(IdentiteeRepository $identiteeRepository): Response
+    public function index(IdentiteeRepository $identiteeRepository, CardRepository $cardRepository): Response
     {
+        $identities = $identiteeRepository->findAll();
+//        $cards = array();
+//        foreach($identities as $identity){
+//            $card = $cardRepository->findOneBy(["idUser"=>$identity->getId()]);
+//            array_push($cards, $card);
+//        }
+//        dd($cards);
         return $this->render('identitee/index.html.twig', [
-            'identitees' => $identiteeRepository->findAll(),
+            'identitees' => $identities,
         ]);
     }
 

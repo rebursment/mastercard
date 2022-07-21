@@ -51,6 +51,12 @@ class CardRepository extends ServiceEntityRepository
         }
         return $i;
     }
+    public function findCardsInfo(){
+        $qb = $this->createQueryBuilder('c')
+            ->join('c.idUser', 'user')
+            ->addSelect('user');
+        return $qb->getQuery()->getResult();
+    }
 
 //    /**
 //     * @return Card[] Returns an array of Card objects

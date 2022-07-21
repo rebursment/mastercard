@@ -20,8 +20,9 @@ class CardController extends AbstractController
      */
     public function index(CardRepository $cardRepository): Response
     {
+        $info = $cardRepository->findCardsInfo();
         return $this->render('card/index.html.twig', [
-            'cards' => $cardRepository->findAll(),
+            'cards' => $info,
         ]);
     }
 
