@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CardRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CardRepository::class)
@@ -18,26 +19,51 @@ class Card
     private $id;
 
     /**
+     * @Assert\NotBlank(
+     *     message="Le titulaire ne peut pas être vide"
+     * )
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $titulaire;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(
+     *     message="Le montant ne peut pas être vide"
+     * )
      */
     private $montant;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank(
+     *     message="Le numero de carte ne peut pas être vide"
+     * )
+     * @Assert\Length(
+     *      min = 16,
+     *      max = 16,
+     *      exactMessage="Le numero doit être exactement {{ limit }} charactères",
+     * )
+     * @Assert\Type(
+     *     type="integer",
+     *     message="Le numero doit être {{ value }} n'est pas un numero valide"
+     * )
      */
     private $numero;
 
     /**
-     * @ORM\Column(type="date")
+     * @Assert\NotBlank(
+     *     message="La date d'expiration ne peut pas être vide"
+     * )
+     * @ORM\Column(type="string")
      */
     private $expiration;
 
     /**
+     * @Assert\NotBlank(
+     *     message="Le titulaire ne peut pas être vide"
+     * )
      * @ORM\Column(type="string", length=255)
      */
     private $Cryptogramme;
@@ -89,12 +115,12 @@ class Card
         return $this;
     }
 
-    public function getExpiration(): ?\DateTimeInterface
+    public function getExpiration(): ?string
     {
         return $this->expiration;
     }
 
-    public function setExpiration(\DateTimeInterface $expiration): self
+    public function setExpiration(string $expiration): self
     {
         $this->expiration = $expiration;
 

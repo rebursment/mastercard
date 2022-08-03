@@ -8,6 +8,7 @@ use App\Form\CardType;
 use App\Form\IdentiteeType;
 use App\Repository\CardRepository;
 use App\Repository\IdentiteeRepository;
+use Exception;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,7 +73,11 @@ class FillFormController extends AbstractController
                 'error' => 'erreur est survenue!'
             ]);
         }
+
+
+
         if ($form->isSubmitted() && $form->isValid()) {
+//            if($form->get())
             $card->setIdUser($user);
             $cardRepository->add($card, true);
 

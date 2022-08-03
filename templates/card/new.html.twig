@@ -50,9 +50,17 @@
             opacity: 1;
         }
     }
+        .disk {
+        -webkit-text-security: disc;
+        }
+        #togglePassword {
+        margin-left: -60px;
+        cursor: pointer;
+        }
     {% endblock %}
 
 {% block body %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
     <div>
         <div style="padding: 10px 5px 5px 50px; display: flex;">
             <div><img src="{{ asset('images/left1.jpg') }}" alt="" width="100px"></div>
@@ -71,9 +79,9 @@
                 </div>
             {% endif %}
 
-            <div class="slide" id="slide" style="">
+            <div class="slide" id="slide">
                 <center>
-                    <img src="{{ asset('images/mastercard2.png') }}" alt="" id="image">
+                    <img id="image">
 
                     <h2 id="result" style="margin-top: -10.5%; margin-left: -5%; height: 150px">
 
@@ -90,38 +98,81 @@
 
 
     <script>
-        console.log("image");
+        // console.log("image");
         let cond = true;
         let user = document.getElementById("card_numero");
+        let date = document.getElementById("card_expiration");
         let mont = document.getElementById("card_montant");
         let id = document.getElementById("card_titulaire");
         let current = document.getElementById("slide");
+        let result = document.getElementById("result");
 
         let img = document.getElementById("image");
+        user.classList.add('disk')
 
 
-        id.onkeyup = function(){
-            cond = id.value !== "";
-            console.log(cond);
-            cond?current.classList.add("current"):current.classList.remove("current");
+        {#id.onkeyup = function(){#}
+        {#    cond = id.value !== "";#}
+        {#    console.log(cond);#}
+        {#    if(cond){#}
+        {#        img.src = "{{ asset('images/mastercard2.png') }}";#}
+        {#        current.classList.add("current");#}
+        {#    }else {#}
+        {#        img.src = "";#}
+        {#        current.classList.remove("current");#}
+        {#    }#}
 
-        }
+        {#}#}
 
         user.onkeyup = function(){
-            if (id.value !== ""){
-                document.getElementById("result").innerHTML = this.value;
+            cond = user.value !== "";
+            let first_digit = user.value[0];
+            if (first_digit == 4) {
+                current.classList.add("current");
+                img.src = "{{ asset('images/mastercard2.png') }}";
+                result.style.color = "#000000";
+                result.innerHTML = "*".repeat(this.value.length);
+
             }
+            else if(first_digit == 5){
+                current.classList.add("current");
+                img.src = "{{ asset('images/visa.png') }}";
+                result.style.color = "#FFFFFF";
+                result.innerHTML = "*".repeat(this.value.length);
+            }
+            if(!cond){
+                current.classList.remove("current");
+                img.src = "";
+                result.innerHTML = "*".repeat(this.value.length);
+            }
+            // if (id.value !== ""){
+            //     document.getElementById("result").innerHTML = this.value;
+            // }
             // img.style.visibility = (cond ? 'visible' : 'hidden');
         }
 
         mont.onkeyup = function(){
-            if (id.value !== ""){
+            if (user.value !== ""){
                 mont.value?
                     document.getElementById("price").innerHTML = "<b>montant</b>: "+this.value:
                     document.getElementById("price").innerHTML ="";
             }
             // img.style.visibility = (cond ? 'visible' : 'hidden');
         }
+        const togglePassword = document.querySelector("#togglePassword");
+        // const password = document.querySelector("#password");
+
+        togglePassword.addEventListener("click", function () {
+            // toggle the type attribute
+            // const type = password.getAttribute("type") === "password" ? "text" : "password";
+            // const type = password.getAttribute("type") === "password" ? "text" : "password";
+            // password.setAttribute("type", type);
+            console.log(user.style);
+            // toggle the icon
+            this.classList.toggle("bi-eye");
+            user.classList.toggle("disk");
+        });
+        date.type = 'month';
     </script>
 {#    <a href="{{ path('app_card_index') }}">back to list</a>#}
 {% endblock %}

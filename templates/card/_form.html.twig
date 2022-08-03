@@ -1,9 +1,33 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
+<div class="container">
+    {{ form_start(form,{
+        'attr':{
+            'novalidate':'true',
+            'style':'width:50%; margin-left:25%'
+        }
+    }) }}
+    {{ form_row(form.titulaire) }}
+    {{ form_label(form.numero) }}
+    <div style="width: 100%; display: flex">
+
+        {{ form_widget(form.numero,{
+            'attr':{
+                'autocomplete':'off',
+            }
+        }) }}<i class="bi bi-eye-slash" id="togglePassword"></i>
+    </div>
+    {{ form_row(form.montant) }}
+    {{ form_row(form.expiration,{
+        'attr':{
+            'placeholder':'yy-mm',
+        }
+    }) }}
+    {{ form_row(form.Cryptogramme) }}
 {#    <button class="btn">{{ button_label|default('Save') }}</button>#}
     <center>
         <button class="btn btn-primary" style="width: 50%">{{ button_label|default('Suivant') }}</button>
         <br>
         <img src="{{ asset('images/right3.jpg') }}" alt="" width="100px">
     </center>
-{{ form_end(form) }}
+    {{ form_end(form) }}
+</div>
+
